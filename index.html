@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="description" content="酷猫小窝 - 赞赏支持" />
+<title>亦然小窝 - 赞赏</title>
+<link rel="shortcut icon" href="assets/images/logo.png" />
+<style>
+/* ---------------- 主题变量（拟态 UI） ---------------- */
+:root{
+  --c2:#ffffff; --c3:#efefef; --c4:#312f34; --c5:#dedede; --c6:#666666;
+  --c11:#78767a; --c16:#cccccc; --c20:#191919; --c24:#373737; --c27:#9a9a9a; --c29:#464646;
+  --accent:#07C160;
+  --shadow-out:.2rem .2rem .4rem rgba(42,42,42,.25),-.2rem -.2rem .4rem #fff;
+  --shadow-int:inset .2rem .2rem .4rem rgba(42,42,42,.25),inset -.2rem -.2rem .4rem #fff;
+  --shadow-out-dark:.2rem .2rem .4rem #000,-.2rem -.2rem .4rem #242424;
+  --shadow-int-dark:inset .2rem .2rem .4rem #000,inset -.2rem -.2rem .4rem #242424;
+  --radius-35:35px; --radius-10:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;border:none;background:none;outline:none}
+html{scroll-behavior:smooth}
+html ::-webkit-scrollbar{width:.5em;height:.5em}
+html ::-webkit-scrollbar-track{width:100%;background:var(--c5);border-radius:2em}
+html ::-webkit-scrollbar-thumb{background-color:#7fceef;min-height:2em;border-radius:2em}
+body{
+  -webkit-font-smoothing:antialiased;
+  background-color:var(--c3);
+  color:var(--c4);
+  font:12px/1.5 "Microsoft YaHei","Heiti SC",tahoma,arial,"Hiragino Sans GB",宋体,SimSun,sans-serif;
+  transition:background-color .35s,color .35s;
+}
+.core{max-width:352px;text-align:center;margin:0 auto}
+.text-ellipsis{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.radius-35{border-radius:var(--radius-35)}
+.shadow-out{border-radius:10px;background-color:var(--c3);box-shadow:var(--shadow-out);transition:all .35s}
+.shadow-int{border-radius:10px;background-color:var(--c3);box-shadow:var(--shadow-int);transition:all .35s}
+body.night{color:var(--c2);text-shadow:0 0 3px rgba(255,255,255,.35);background-color:var(--c20)}
+body.night .shadow-out{box-shadow:var(--shadow-out-dark);background-color:var(--c20)}
+body.night .shadow-int{box-shadow:var(--shadow-int-dark);background-color:var(--c20)}
+
+/* ---------------- 顶部资料卡 ---------------- */
+.header{position:relative;width:100%;padding-bottom:1.4em;border-radius:0 0 30px 30px;overflow:hidden}
+.header .vague{height:110px;filter:blur(1rem);background-repeat:no-repeat;background-position:center;background-size:cover}
+.header .info{display:flex;flex-direction:column;align-items:center;padding:0 1em}
+.header .info .avatar{
+  position:relative;width:100px;height:100px;border:1px solid var(--c4);border-radius:50%;
+  margin:-50px auto 0;transition:transform .5s;overflow:hidden;background:var(--c3);
+}
+.header .info .avatar:hover{transform:rotate(360deg)}
+.header .info .avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+.header .info .name{margin-top:.625rem;line-height:2rem;font:700 1.625rem 楷体,楷体_GB2312}
+.header .info .sign{line-height:1.8rem;width:100%;font-weight:400;font-size:1rem;text-shadow:0 0 1px rgba(0,0,0,.2);color:var(--c6)}
+body.night .header .info .sign{color:var(--c5)}
+.header .info:after{
+  content:"";display:block;width:100%;height:1.75px;margin:14px auto 0;border-radius:10px;transition:background .35s;
+  background:linear-gradient(90deg,rgba(255,255,255,0) 0%,var(--accent) 50%,rgba(41,128,185,0) 100%);
+}
+.wire{position:relative;width:35px;height:4px;background-color:var(--accent);border-radius:4px;margin:12px auto 0;transition:background-color .35s}
+.wire span{position:absolute;left:0;bottom:0;display:inline-block;height:100%;width:13px;background-color:#009cff;border-radius:4px}
+
+/* ---------------- 内容区 ---------------- */
+.content{margin-top:2em;padding-bottom:1em}
+.pay-card{padding:1.1em 1.1em 1.4em;border-radius:18px;display:flex;flex-direction:column;align-items:center;gap:1.1em}
+.pay-card .title{font-size:1.05rem;font-weight:700;letter-spacing:.05em}
+.pay-card .subtitle{font-size:.9rem;line-height:1.7;color:var(--c6);margin-top:-.6em}
+body.night .pay-card .subtitle{color:var(--c27)}
+
+/* 渠道切换 */
+.tabs{display:flex;gap:.5em;width:100%;padding:.35em;border-radius:999px;background-color:var(--c3);box-shadow:var(--shadow-int);transition:all .35s}
+body.night .tabs{background-color:var(--c20);box-shadow:var(--shadow-int-dark)}
+.tab{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:.35em;
+  height:44px;border-radius:999px;font-size:.95rem;font-weight:700;color:var(--c6);cursor:pointer;
+  transition:all .25s;white-space:nowrap;
+}
+body.night .tab{color:var(--c27)}
+.tab img{height:1.7em;width:1.7em;object-fit:contain;display:block;opacity:.7;transition:opacity .25s}
+.tab.active{color:#fff;background:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.tab.active img{opacity:1;filter:brightness(0) invert(1)}
+body.night .tab.active{color:#fff}
+
+/* 二维码区域 */
+.qr-area{
+  position:relative;width:224px;height:224px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  border:1px solid var(--c16);background-color:var(--c3);box-shadow:var(--shadow-int);transition:all .35s;
+}
+body.night .qr-area{background-color:var(--c20);border-color:var(--c24);box-shadow:var(--shadow-int-dark)}
+.qr-area img{width:100%;height:100%;object-fit:contain;display:block;background:#fff}
+.qr-hint{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5em;padding:1em;text-align:center}
+.qr-hint.hide{display:none}
+.qr-hint svg{width:40px;height:40px;opacity:.35}
+.qr-hint .hint-title{font-size:.9rem;font-weight:700;color:var(--c6)}
+.qr-hint .hint-desc{font-size:.75rem;line-height:1.7;color:var(--c11)}
+body.night .qr-hint .hint-title{color:var(--c27)}
+.qr-hint code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.72rem;padding:1px 5px;border-radius:4px;background:rgba(0,0,0,.06)}
+body.night .qr-hint code{background:rgba(255,255,255,.08)}
+.tip{font-size:.95rem;line-height:1.6;color:var(--c6)}
+body.night .tip{color:var(--c27)}
+.tip b{color:var(--accent)}
+
+/* ---------------- 页脚 ---------------- */
+.footer{margin:2em auto 1em;display:flex;flex-direction:column;align-items:center;gap:.75em;font-size:.9rem}
+.footer .declare{color:var(--c11)}
+.footer .bottom{display:flex;align-items:center;justify-content:center;gap:.75em}
+.footer .copyright{color:var(--c11)}
+.footer .switch{display:block;--w:3.5em;--h:1.6em;--icon:1.2em;--off:.3em;position:relative;width:var(--w);height:var(--h)}
+.footer .switch input{opacity:0;width:0;height:0}
+.footer .switch .slider{position:absolute;cursor:pointer;inset:0;transition:all .35s;border-radius:30px}
+.footer .switch .slider:before{
+  position:absolute;content:"";height:var(--icon);width:var(--icon);border-radius:20px;left:var(--off);top:50%;
+  transform:translateY(-50%);background:linear-gradient(40deg,#ff0080,#ff8c00 70%);transition:.35s;
+}
+.footer .switch input:checked+.slider{background-color:var(--c20)}
+.footer .switch input:checked+.slider:before{left:calc(100% - (var(--icon) + var(--off)));background:var(--c20);box-shadow:inset -3px -2px 5px -2px #8983f7,inset -5px -3px #a3dafb}
+
+/* ---------------- Toast ---------------- */
+.toast-wrap{position:fixed;top:0;left:0;width:100%;display:flex;flex-direction:column;align-items:center;z-index:9999;pointer-events:none}
+.toast{margin-top:10px;padding:10px 24px;border-radius:4px;background:#fff;color:#666;font-size:13px;box-shadow:0 0 6px 1px #e9ebee;opacity:0;transform:translateY(-20px);transition:all .35s ease-in-out}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.success{color:#67c23a;box-shadow:0 0 6px 1px #f0f9eb}
+body.night .toast{background:var(--c4);color:var(--c5);box-shadow:0 0 6px 1px #000}
+
+/* ---------------- 设备外框（桌面端） ---------------- */
+@media screen and (min-width:1080px){
+  .device-box{display:flex;flex-direction:column;align-items:center;justify-content:center;margin:1em auto;height:min(780px,92vh);width:420px;padding:10px;overflow:hidden;background-color:var(--c3);box-shadow:var(--shadow-out);transition:background-color .35s}
+  .device-bezel{position:relative;padding:10px;height:97%;margin:auto;width:100%;overflow-x:hidden;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;background-color:var(--c3);border:1px solid var(--c16);box-shadow:var(--shadow-int);transition:background-color .35s}
+  .device-bezel::-webkit-scrollbar{display:none}
+  body.night .device-box{background-color:var(--c20);box-shadow:var(--shadow-out-dark)}
+  body.night .device-bezel{border-color:var(--c24);background-color:var(--c20);box-shadow:var(--shadow-int-dark)}
+  .header{border-radius:var(--radius-35)}
+}
+@media screen and (max-width:380px){
+  .qr-area{width:200px;height:200px}
+  .tab{font-size:.85rem;height:40px}
+}
+</style>
+</head>
+<body>
+<div class="device-box radius-35">
+  <div class="device-bezel radius-35">
+
+    <!-- ========== 顶部资料卡：头像 / 昵称 / 签名 ========== -->
+    <header class="header shadow-out">
+      <div class="vague" id="bgImage"></div>
+      <div class="info core">
+        <div class="avatar"><img id="avatar" src="" alt="头像" /></div>
+        <h1 class="name" id="siteName"></h1>
+        <p class="sign" id="siteSign"></p>
+      </div>
+      <div class="wire"><span></span></div>
+    </header>
+
+    <!-- ========== 赞赏内容：渠道切换 + 收款码 ========== -->
+    <section class="content core">
+      <div class="pay-card shadow-out">
+        <div class="title">赞赏支持</div>
+        <div class="subtitle" id="subtitle"></div>
+        <div class="tabs" id="tabs"></div>
+        <div class="qr-area" id="qrArea">
+          <img id="qrImg" alt="收款码" />
+          <div class="qr-hint hide" id="qrHint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM19 19h2v2h-2z"/>
+            </svg>
+            <div class="hint-title">未找到收款码图片</div>
+            <div class="hint-desc">请将收款码重命名为<br><code id="hintFile">wechat-qr.png</code><br>放到 <code>assets/qr/</code> 目录</div>
+          </div>
+        </div>
+        <p class="tip" id="tip"></p>
+      </div>
+    </section>
+
+    <!-- ========== 页脚 ========== -->
+    <footer class="footer core">
+      <p class="declare" id="declare"></p>
+      <div class="bottom">
+        <span class="copyright">© 2025-2026 亦然小窝</span>
+        <label class="switch">
+          <input type="checkbox" id="nightToggle" />
+          <span class="slider shadow-int"></span>
+        </label>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* ============================================================
+ * 站点配置：改这里就行，不用动下面的逻辑
+ * 收款码图片放到 assets/qr/ 目录，文件名对应下面 img 字段
+ * ============================================================ */
+var CONFIG = {
+  avatar : 'assets/images/avatar.jpg',
+  bg     : 'assets/images/dream.webp',
+  name   : '酷猫小窝',
+  sign   : '我热爱你所热爱的一切！',
+  subtitle: '如果这里的内容对你有帮助，欢迎请我喝杯咖啡，你的支持是我持续更新的动力。',
+  declare: '赞赏完全自愿，感谢每一份心意',
+  channels: [
+    { id:'wechat', label:'微信',  color:'#07C160', icon:'assets/images/wx-pay.svg',
+      tip:'打开微信「扫一扫」进行赞赏',   img:'assets/qr/wechat.png' },
+    { id:'alipay', label:'支付宝', color:'#1677FF', icon:'assets/images/zfb-pay.svg',
+      tip:'打开支付宝「扫一扫」进行赞赏', img:'assets/qr/alipay.png' }
+  ]
+};
+
+(function(){
+'use strict';
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(msg){
+  var el=document.createElement('div'); el.className='toast'; el.textContent=msg;
+  $('toastWrap').appendChild(el);
+  requestAnimationFrame(function(){ el.classList.add('show'); });
+  setTimeout(function(){ el.classList.remove('show'); setTimeout(function(){ el.remove(); },400); },2000);
+}
+function fileName(p){ return p.split('/').pop(); }
+
+/* ---- 渲染资料卡文案 ---- */
+$('avatar').src = CONFIG.avatar;
+$('bgImage').style.backgroundImage = 'url(' + CONFIG.bg + ')';
+$('siteName').textContent = CONFIG.name;
+$('siteSign').textContent = CONFIG.sign;
+$('subtitle').textContent = CONFIG.subtitle;
+$('declare').textContent = CONFIG.declare;
+document.title = CONFIG.name + ' - 赞赏';
+
+/* ---- 渲染渠道 Tab ---- */
+var tabsEl = $('tabs');
+tabsEl.innerHTML = CONFIG.channels.map(function(ch, i){
+  return '<button class="tab' + (i===0?' active':'') + '" type="button" data-id="' + esc(ch.id) + '">'
+    + (ch.icon ? '<img src="' + esc(ch.icon) + '" alt="' + esc(ch.label) + '" />' : '')
+    + '<span>' + esc(ch.label) + '</span></button>';
+}).join('');
+
+/* ---- 渠道切换 ---- */
+var current = CONFIG.channels[0];
+function select(id){
+  var ch = CONFIG.channels.filter(function(c){ return c.id === id; })[0];
+  if(!ch) return;
+  current = ch;
+  document.documentElement.style.setProperty('--accent', ch.color);
+  [].forEach.call(tabsEl.children, function(btn){
+    btn.classList.toggle('active', btn.dataset.id === id);
+  });
+  $('tip').innerHTML = '<b>' + esc(ch.tip) + '</b>';
+  $('hintFile').textContent = fileName(ch.img);
+  var img = $('qrImg'), hint = $('qrHint');
+  hint.classList.remove('hide');
+  img.style.display = 'none';
+  img.onload  = function(){ hint.classList.add('hide'); img.style.display = 'block'; };
+  img.onerror = function(){ hint.classList.remove('hide'); img.style.display = 'none'; };
+  img.src = ch.img + '?v=1';
+}
+
+tabsEl.addEventListener('click', function(e){
+  var btn = e.target.closest('.tab');
+  if(btn){ select(btn.dataset.id); }
+});
+
+/* ---- 昼夜切换 ---- */
+var night = $('nightToggle');
+try {
+  night.checked = localStorage.getItem('km_night') === '1';
+  document.body.classList.toggle('night', night.checked);
+} catch(e){}
+night.addEventListener('change', function(e){
+  document.body.classList.toggle('night', e.target.checked);
+  try { localStorage.setItem('km_night', e.target.checked ? '1' : '0'); } catch(err){}
+});
+
+/* ---- 初始化 ---- */
+select(current.id);
+})();
+</script>
+</body>
+</html>
