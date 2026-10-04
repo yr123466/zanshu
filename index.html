@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="description" content="酷猫小窝 - 赞赏支持" />
+<meta name="description" content="亦然小窝 - 赞赏支持" />
 <title>亦然小窝 - 赞赏</title>
 <link rel="shortcut icon" href="assets/images/logo.png" />
 <style>
@@ -104,6 +104,8 @@ body.night .tip{color:var(--c27)}
 /* ---------------- 页脚 ---------------- */
 .footer{margin:2em auto 1em;display:flex;flex-direction:column;align-items:center;gap:.75em;font-size:.9rem}
 .footer .declare{color:var(--c11)}
+.footer .contact{color:var(--c11)}
+.footer .contact a{color:var(--accent);text-decoration:none;border-bottom:1px dashed currentColor}
 .footer .bottom{display:flex;align-items:center;justify-content:center;gap:.75em}
 .footer .copyright{color:var(--c11)}
 .footer .switch{display:block;--w:3.5em;--h:1.6em;--icon:1.2em;--off:.3em;position:relative;width:var(--w);height:var(--h)}
@@ -177,6 +179,7 @@ body.night .toast{background:var(--c4);color:var(--c5);box-shadow:0 0 6px 1px #0
     <!-- ========== 页脚 ========== -->
     <footer class="footer core">
       <p class="declare" id="declare"></p>
+      <p class="contact">反馈联系：<a id="contactMail" href="#"></a></p>
       <div class="bottom">
         <span class="copyright">© 2025-2026 亦然小窝</span>
         <label class="switch">
@@ -199,10 +202,11 @@ body.night .toast{background:var(--c4);color:var(--c5);box-shadow:0 0 6px 1px #0
 var CONFIG = {
   avatar : 'assets/images/avatar.jpg',
   bg     : 'assets/images/dream.webp',
-  name   : '酷猫小窝',
+  name   : '亦然小窝',
   sign   : '我热爱你所热爱的一切！',
   subtitle: '如果这里的内容对你有帮助，欢迎请我喝杯咖啡，你的支持是我持续更新的动力。',
   declare: '赞赏完全自愿，感谢每一份心意',
+  email  : '3176210846@qq.com',
   channels: [
     { id:'wechat', label:'微信',  color:'#07C160', icon:'assets/images/wx-pay.svg',
       tip:'打开微信「扫一扫」进行赞赏',   img:'assets/qr/wechat.png' },
@@ -230,6 +234,8 @@ $('siteName').textContent = CONFIG.name;
 $('siteSign').textContent = CONFIG.sign;
 $('subtitle').textContent = CONFIG.subtitle;
 $('declare').textContent = CONFIG.declare;
+$('contactMail').textContent = CONFIG.email;
+$('contactMail').href = 'mailto:' + CONFIG.email;
 document.title = CONFIG.name + ' - 赞赏';
 
 /* ---- 渲染渠道 Tab ---- */
